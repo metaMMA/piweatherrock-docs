@@ -1,6 +1,5 @@
-
 ---
-title: "Welcome to PiWeatherRock"
+title: 'Welcome to PiWeatherRock'
 linkTitle: "Documentation"
 weight: 20
 menu:
