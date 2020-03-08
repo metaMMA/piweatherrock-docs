@@ -6,7 +6,7 @@ description: >
   Installation and configuration information
 ---
 
-This is guide is based on the assumption that you are using Raspbian 10 (buster). Though the code works on other platforms, the setup process has been tailored for this operating system and will not work on older versions. You can verify what version of Raspbian you have by running this command:
+This guide is based on the assumption that you are using Raspbian 10 (buster). Though the code works on other platforms, the setup process has been tailored for this operating system and will not work on older versions. You can verify what version of Raspbian you have by running this command:
 
 ```bash
 cat /etc/os-release
@@ -47,4 +47,4 @@ sudo ./install.sh mylittlepi
 
 This will execute the [install.sh](https://github.com/genebean/PiWeatherRock/blob/master/install.sh) which will do some initial prep work and then use Puppet to configure everything else by applying [setup.pp](https://github.com/genebean/PiWeatherRock/blob/master/setup.pp).
 
-When this finishes you will have a new systemd service named [PiWeatherRock.service](PiWeatherRock.service) that automatically starts up. You can check the status of the service by running `sudo systemctl status PiWeatherRock`.
+When this finishes, you will have a new systemd service named [PiWeatherRock.service](PiWeatherRock.service) that automatically starts up. You can check the status of the service by running `sudo systemctl status PiWeatherRock`.
