@@ -8,17 +8,19 @@ description: >
 
 # Speedtest
 
-How to run speedtests periodically on a different machine and feed the results to PiWeatherRock
+This is a guide on how to run speedtests periodically on a different machine and feed the results to PiWeatherRock.
 
-### Preamble:
-Older and underpowered Raspberry Pi's have difficulty keeping up with faster and faster network speeds provided by modern ISPs. It's recommended that you perform speedtests on both your Pi and on a different machine that is known to get the full speeds provided. Compare the results, and if you decide they are close enough, then running the speedtests on the Pi is an option. If not, you can setup a different machine to do the speedtests and then feed that information to PiWeatherRock for display.
+## Preamble:
+Older and underpowered Raspberry Pi's have difficulty keeping up with faster and faster network speeds provided by modern ISPs. If you are considering using the `speedtest` plugin and running the tests on the Pi, it's recommended that you perform speedtests on both your Pi and on a different machine that is known to get the full speeds provided. Compare the results, and if you decide they are close enough, then running the speedtests on the Pi is an option. If not, you can setup a different machine to do the speedtests and then feed that information to PiWeatherRock for display.
 
 
 ### Notes:
 - For best results, you'll want to run speedtests on a computer/server that is on 24/7. In this guide we will call this machine 'the server'.
 - Make sure that PiWeatherRock is not running while we make the necessary changes. Execute `sudo systemctl stop PiWeatherRock` from terminal on the Pi to stop it.
 
-## Server OS: GNU/Linux or macOS
+## Installing on Windows machine
+Pending future update
+## Installing on GNU/Linux or macOS machine
 
 ### PREP:
 1. We'll need CURL installed.
@@ -40,7 +42,11 @@ Older and underpowered Raspberry Pi's have difficulty keeping up with faster and
 
 3. Get the server hostname for PART 2 by executing the following command:
 
-`hostname -f` or simply `hostname`
+`hostname -f` 
+
+or simply
+
+`hostname`
 
 4. Create a directory for the speedtest application and move to that directory by executing the following commands:
 
@@ -68,6 +74,7 @@ chmod +x speedtest-cli`
 `echo '~/.speedtest/speedtest-cli --json > ~/.speedtest/results/queue/$(date +%s).json' >> speedtest.sh`
 
 8. Let's find out where the application `bash` is located (for step 11) by executing the following commmand:
+
 `which bash`
 
 9. Now, we'll set the script to run periodically. Execute the following command:
@@ -75,9 +82,11 @@ chmod +x speedtest-cli`
 `crontab -e`
 
 10. If this is your first time using cron, you may be prompted to choose your default text editor. Choose 'nano', as it is easier for beginners.
-11. The following line will run the speedtest every 20 minutes. Edit the line below for your desired test interval. Replace `/usr/bin/bash` with the output from step 8. Then use down arrow to move the cursor to the very last line and paste the editted line below into the terminal screen:
+11. The first line below will run the speedtest every 20 minutes. The seond line below will run the speedtest every 2 hours (at 23 minutes past the hour). Choose a line and edit it for your desired test interval. Replace `/usr/bin/bash` with the output from step 8. Then use down arrow to move the cursor to the very last line and paste the edited line below into the terminal screen:
 
 `*/20 * * * * /usr/bin/bash ~/.speedtest/speedtest.sh`
+
+`23 */2 * * * /usr/bin/bash ~/.speedtest/speedtest.sh`
 
 12. Type `ctrl` + 'x' to exit. Type 'Y' to save. Type `return/enter` to confirm the filename.
 13. We'll need at least one speedtest result before starting PiWeatherRock. If the interval you input above is fairly long, you can run a speedtest right now by executing the following command:
@@ -86,7 +95,9 @@ chmod +x speedtest-cli`
 
 ### PART 2: Setup RSA-key-based SSH connection
 
-```*NOTE:* PART 2 is optional. If you skip PART 2, you'll have to manually mount the server's speedtest directory after every reboot and enter the server's password when prompted. If you do this, add 'no_auto' between 'defaults' and 'allow_other' in PART 3, step 2.```
+#### NOTE:
+*PART 2 is optional.* If you skip PART 2, you'll have to manually mount the server's speedtest directory after every reboot and enter the server's password when prompted. If you do this, add 'no_auto' between 'defaults' and 'allow_other' in PART 3, step 2.
+
 1. On the Pi, open a terminal and execute the following command (when prompted, just hit `return/enter` unless you are familiar with advanced RSA key creation):
 
 `ssh-keygen -t rsa`
@@ -122,19 +133,16 @@ chmod +x speedtest-cli`
 `sudo mount /home/pi/PiWeatherRock/speedtest`
 
 ### PART 4: Edit the PiWeatherRock config files.
-1. On the Pi open `config.py` for editting.
+1. On the Pi open `config.py` for editing.
 2. If there is a variable called `PLUGINS`, add 'speedtest' to the list. Example:
 
 `PLUGINS = ['daily', 'hourly', 'speedtest']`
 
 3. If there is no variable called `PLUGINS`, you are using an outdated version of PiWeatherRock. First upgrade before moving on.
 4. Open `speedtest_config.py.sample` from the `plugin_configs` directory.
-5. Fill in the options with your information. Make sure `SPEEDTEST_ON_PI` is False
+5. Fill in the options with your information. Make sure `SPEEDTEST_ON_PI = False`
 6. Rename `speedtest_config.py.sample` to `speedtest_config.py`
 7. Start PiWeatherRock by executing the following command:
 
 `sudo systemctl start PiWeatherRock`
-
-## Server OS: Windows
-Pending future update
 
