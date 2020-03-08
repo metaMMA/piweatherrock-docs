@@ -39,17 +39,15 @@ A plugin file has the following requirements:
 
 `    def disp_qqq(self, last_update_time):`
 
-10. Method `get_qqq` must return the `last_update_time` when successful, or a `0` if unsuccessful
-11. Method `disp_qqq` must not have a return.
-12. Method must end with `pygame.display.update()`
+10. Method `get_qqq` must return the `last_update_time` when successful.
+11. Method `get_qqq` must return `0` if unsuccessful on it's initial call.
+12. Method `get_qqq` must return the `last_update_time` + some `integer` when unsuccessful after initial call. The integer represents the number of seconds to wait before attempting the update again.
+13. Method `disp_qqq` must not have a return.
+14. Method must end with `pygame.display.update()`
 
-13. Must have passed both the `flake8`<sup>a</sup> and `pyflakes`<sup>b</sup> tests. This will catch any undeclared methods, unused imports, unused variables and PEP8 formatting errors.
+15. Must have passed both the `flake8` <sup>a</sup> and `pyflakes` <sup>b</sup> tests. This will catch any undeclared methods, unused imports, unused variables and PEP8 formatting errors.
 
 
-<sup>a</sup>: Install by executing `pip3 install pyflakes`. Pyflakes is run executing the following command from the `~/PiWeatherRock` directory:
+<sup>a</sup>: Install by executing `pip3 install pyflakes`. Pyflakes is run executing the following command from the `~/PiWeatherRock` directory: `python3 -m pyflakes .`
 
-`python3 -m pyflakes .`
-
-<sup>b</sup>: Install by executing `pip3 install flake8`. Flake8 is run by executing the following command from the `~/PiWeatherRock` directory:
-
-`flake8 qqq.py`
+<sup>b</sup>: Install by executing `pip3 install flake8`. Flake8 is run by executing the following command from the `~/PiWeatherRock` directory: `flake8 qqq.py`
