@@ -23,7 +23,7 @@ A configutation file has the following requirements:
 ## Plugin File
 A plugin file has the following requirements:
 1. Must be located in the root directory: `~/PiWeatherRock`
-2. Must be named only with lowercase letters and/or underscores
+2. Must be named only with lowercase letters and/or underscores. Example: `qqq.py`
 3. Must begin with the same 39 lines as all of the other plugins (this includes the license and attribution)
 4. Line 40 should be `# standard imports` followed by any imported standard libraries
 5. After these standard imports will be a blank newline.
@@ -36,8 +36,8 @@ A plugin file has the following requirements:
 12. Method `get_qqq` must return `0` if unsuccessful on it's initial call.
 13. Method `get_qqq` must return the `last_update_time` + some `integer` when unsuccessful after initial call. The integer represents the number of seconds to wait before attempting the update again.
 14. Method `disp_qqq` must not have a return.
-15. Method must end with `pygame.display.update()`
-16. Must have passed both the `flake8` <sup>a</sup> and `pyflakes` <sup>b</sup> tests. This will catch any undeclared methods, unused imports, unused variables and PEP8 formatting errors.
+15. Method `disp_qqq` must end with `pygame.display.update()`
+16. Plugin file `qqq.py` must have passed both the `flake8` <sup>a</sup> and `pyflakes` <sup>b</sup> tests. These tests will catch any undeclared methods, unused imports, unused variables and PEP8 formatting errors.
 
 
 <sup>a</sup>: Install by executing `pip3 install pyflakes`. Pyflakes is run executing the following command from the `~/PiWeatherRock` directory: `python3 -m pyflakes .`
