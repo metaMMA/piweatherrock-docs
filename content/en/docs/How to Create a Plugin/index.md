@@ -42,14 +42,14 @@ A plugin file has the following requirements:
 10. Method `get_qqq` must return the `last_update_time` when successful, or a `0` if unsuccessful
 11. Method `disp_qqq` must not have a return.
 12. Method must end with `pygame.display.update()`
-13. Must have passed both the `flake8` and `pyflakes` tests. This will catch any undeclared methods, unused imports, unused variables and PEP8 formatting errors.
 
-Install by executing `pip3 install pyflakes` and `pip3 install flake8`
+13. Must have passed both the `flake8`<sup>a</sup> and `pyflakes`<sup>b</sup> tests. This will catch any undeclared methods, unused imports, unused variables and PEP8 formatting errors.
 
-Pyflakes is run executing the following comand from the `~/PiWeatherRock` directory:
+
+<sup>a</sup>: Install by executing `pip3 install pyflakes`. Pyflakes is run executing the following command from the `~/PiWeatherRock` directory:
 
 `python3 -m pyflakes .`
 
-Flake8 is run by executing the following command from the `~/PiWeatherRock` directory:
+<sup>b</sup>: Install by executing `pip3 install flake8`. Flake8 is run by executing the following command from the `~/PiWeatherRock` directory:
 
 `flake8 qqq.py`
